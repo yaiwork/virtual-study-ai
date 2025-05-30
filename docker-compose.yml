@@ -1,0 +1,52 @@
+version: "3.9"
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile.backend
+    container_name: rag-backend-v3
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./knowledge-base:/app/knowledge-base
+    env_file:
+      - .env
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile.frontend
+    container_name: rag-frontend-v3
+    ports:
+      - "8501:8501"
+    depends_on:
+      - backend
+
+
+# SQL3 Users DATABASE Added
+# version: "3.9"
+
+# services:
+#   backend:
+#     build:
+#       context: .
+#       dockerfile: backend/Dockerfile.backend
+#     container_name: rag-backend
+#     ports:
+#       - "8000:8000"
+#     volumes:
+#       - ./knowledge-base:/app/knowledge-base
+#       - ./user_data:/backend/user_data            # 🔍 persist users.db to ./data
+#     env_file:
+#       - .env
+
+#   frontend:
+#     build:
+#       context: .
+#       dockerfile: frontend/Dockerfile.frontend
+#     container_name: rag-frontend
+#     ports:
+#       - "8501:8501"
+#     depends_on:
+#       - backend
