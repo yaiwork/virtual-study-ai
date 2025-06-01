@@ -7,3 +7,4 @@ data/chroma/
 .idea/
 venv/
 *.csv
+*.pdf
