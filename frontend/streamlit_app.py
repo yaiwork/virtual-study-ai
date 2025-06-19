@@ -229,37 +229,3 @@ elif mode == "Study Guide Generator":
 
     show_util_buttons("study_guide_chat")
 
-
-
-# # === EXAM QUESTIONS SOLVER ===
-# elif mode == "Exam Questions Solver":
-#     st.header("🧠 Exam Questions Solver")
-#     subject = st.selectbox("Subject", subject_options, key="solver_subject")
-#     grade = st.selectbox("Grade", grade_options, key="solver_grade")
-#     question = st.text_area("Enter the exam question you'd like to solve:")
-
-#     if "exam_solver_chat" not in st.session_state:
-#         st.session_state.exam_solver_chat = []
-
-#     for msg in st.session_state.exam_solver_chat:
-#         with st.chat_message(msg["role"]):
-#             st.markdown(msg["content"], unsafe_allow_html=True)
-
-#     if st.button("Solve Question"):
-#         if not all([subject, grade, question.strip()]):
-#             st.warning("Please fill all fields.")
-#         else:
-#             user_prompt = f"Exam question for Grade {grade} {subject}: {question}"
-#             st.session_state.exam_solver_chat.append({"role": "user", "content": user_prompt})
-
-#             payload = {"subject": subject, "grade": grade, "question": question}
-#             try:
-#                 res = requests.post(f"{BACKEND_URL}/solve-exam-question", json=payload)
-#                 solution = res.json().get("solution", "⚠️ No response.")
-#                 st.session_state.exam_solver_chat.append({"role": "assistant", "content": solution})
-#                 with st.chat_message("assistant"):
-#                     st.markdown(solution, unsafe_allow_html=True)
-#             except Exception as e:
-#                 st.error(f"❌ Error: {e}")
-
-

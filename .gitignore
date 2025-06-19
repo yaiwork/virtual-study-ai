@@ -8,3 +8,4 @@ data/chroma/
 venv/
 *.csv
 *.pdf
+knowledge-base/**/*.pdf
