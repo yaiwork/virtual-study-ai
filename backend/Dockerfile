@@ -1,0 +1,28 @@
+#FROM python:3.10
+
+#WORKDIR /app
+#COPY backend/ /app
+
+#RUN pip install --upgrade pip && pip install -r requirements.txt
+
+#CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
+
+
+# Install system dependencies
+#RUN apt-get update && apt-get install -y tesseract-ocr
+
+# Install Python dependencies
+#RUN pip install pytesseract Pillow
+
+
+FROM python:3.10
+
+WORKDIR /app
+
+COPY . /app
+
+RUN apt-get update && apt-get install -y tesseract-ocr
+
+RUN pip install --upgrade pip && pip install -r requirements.txt && pip install pytesseract Pillow
+
+CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
