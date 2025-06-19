@@ -7,7 +7,8 @@ import re
 st.set_page_config(page_title="📘 Virtual Study AI Tutor Assistant", page_icon="🤖")
 st.title("📘 Virtual Study AI Tutor Assistant")
 
-BACKEND_URL = "http://backend:8000"
+#BACKEND_URL = "http://backend:8000"
+BACKEND_URL  = "https://virtual-study-ai.onrender.com"
 
 # === UTILITIES ===
 subject_options = ["Biology", "Physics", "Chemistry", "Mathematics", "English", "Economics"] #"History",'Amharic', "አካባቢ ሳይንስ","ግብረ-ገብ"]
