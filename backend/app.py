@@ -62,51 +62,52 @@ class StudyGuideRequest(BaseModel):
     topic: str
     
 # ================= Document Loader - ORIGINAL ======================
-# def load_documents():
-#     documents = []
-#     folders = glob.glob(f"{KNOWLEDGE_FOLDER}/*")
-#     for folder in folders:
-#         doc_type = os.path.basename(folder)
-#         loader = DirectoryLoader(folder, glob="**/*.pdf", loader_cls=PyPDFLoader)
-#         folder_docs = loader.load()
-#         for doc in folder_docs:
-#             doc.metadata["doc_type"] = doc_type
-#             documents.append(doc)
-#     return documents
+def load_documents():
+    documents = []
+    folders = glob.glob(f"{KNOWLEDGE_FOLDER}/*")
+    for folder in folders:
+        doc_type = os.path.basename(folder)
+        loader = DirectoryLoader(folder, glob="**/*.pdf", loader_cls=PyPDFLoader)
+        folder_docs = loader.load()
+        for doc in folder_docs:
+            doc.metadata["doc_type"] = doc_type
+            documents.append(doc)
+    return documents
 
 
 #===============   From GRIVE ====================
 
-from langchain_community.document_loaders import PyPDFLoader
-from langchain.docstore.document import Document
+# from langchain_community.document_loaders import PyPDFLoader
+# from langchain.docstore.document import Document
 
-GOOGLE_DRIVE_FILE_IDS = [
-    "1-X3ucWmFF5gBPjxFVzQM5WPIh0MVS8g", "1OUK2oQT3Zg_Xh24F4N-2wUrHK95skwbR",
-    "1mVwDnIieOqVKSdQT0vlVRvuzbKcSmdo_", 
-    # Add more here
-]
+# GOOGLE_DRIVE_FILE_IDS = [
+#     "1-X3ucWmFF5gBPjxFVzQM5WPIh0MVS8g", "1OUK2oQT3Zg_Xh24F4N-2wUrHK95skwbR",
+#     "1mVwDnIieOqVKSdQT0vlVRvuzbKcSmdo_", 
+#     # Add more here
+# ]
 
-def load_documents():
-    documents = []
+# import requests
+# def load_documents():
+#     documents = []
 
-    for file_id in GOOGLE_DRIVE_FILE_IDS:
-        url = f"https://drive.google.com/uc?export=download&id={file_id}"
-        response = requests.get(url)
+#     for file_id in GOOGLE_DRIVE_FILE_IDS:
+#         url = f"https://drive.google.com/uc?export=download&id={file_id}"
+#         response = requests.get(url)
 
-        if response.status_code != 200:
-            print(f"❌ Failed to download file {file_id}")
-            continue
+#         if response.status_code != 200:
+#             print(f"❌ Failed to download file {file_id}")
+#             continue
 
-        print(f"📄 Downloaded file {file_id} — loading into PyPDFLoader...")
-        try:
-            loader = PyPDFLoader(file_path=None, file=BytesIO(response.content))
-            docs = loader.load()
-            documents.extend(docs)
-        except Exception as e:
-            print(f"⚠️ Failed to process file {file_id}: {e}")
+#         print(f"📄 Downloaded file {file_id} — loading into PyPDFLoader...")
+#         try:
+#             loader = PyPDFLoader(file_path=None, file=BytesIO(response.content))
+#             docs = loader.load()
+#             documents.extend(docs)
+#         except Exception as e:
+#             print(f"⚠️ Failed to process file {file_id}: {e}")
 
-    print(f"✅ Loaded {len(documents)} documents from Drive")
-    return documents
+#     print(f"✅ Loaded {len(documents)} documents from Drive")
+#     return documents
 
 # ==========================================================================================
 
