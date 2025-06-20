@@ -34,6 +34,12 @@ app = FastAPI()
 @app.get("/")
 def read_root():
     return {"message": "Welcome to Virtual Study AI!"}
+
+@app.get("/", include_in_schema=False)
+@app.head("/", include_in_schema=False)
+def health_check():
+    return JSONResponse(content={"status": "ok"})
+    
     
 app.add_middleware(
     CORSMiddleware,
