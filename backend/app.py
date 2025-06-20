@@ -31,6 +31,10 @@ KNOWLEDGE_FOLDER = "knowledge-base"
 
 app = FastAPI()
 
+@app.get("/")
+def read_root():
+    return {"message": "Welcome to Virtual Study AI!"}
+    
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
