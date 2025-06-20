@@ -17,4 +17,3 @@ PyPDF2
 pytesseract
 Pillow
 python-multipart
-tesseract 
