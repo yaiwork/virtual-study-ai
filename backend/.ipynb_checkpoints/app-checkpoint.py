@@ -35,7 +35,7 @@ app = FastAPI()
 def read_root():
     return {"message": "Welcome to Virtual Study AI!"}
 
-@app.get("/", include_in_schema=False)
+@app.get("/", include_in_schema=True)
 @app.head("/", include_in_schema=False)
 def health_check():
     return JSONResponse(content={"status": "ok"})
