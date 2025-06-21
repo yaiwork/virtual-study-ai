@@ -27,7 +27,7 @@ load_dotenv(override=True)
 MODEL = "gpt-4o"
 #MODEL = "gpt-3.5-turbo"
 DB_DIR = "vector_db"
-KNOWLEDGE_FOLDER = "knowledge-base"
+#KNOWLEDGE_FOLDER = "knowledge-base"
 
 app = FastAPI()
 
@@ -84,25 +84,25 @@ class StudyGuideRequest(BaseModel):
 #             documents.append(doc)
 #     return documents
 
-#===============   From GRIVE ====================
-
+#===============   Docs  ====================
 from langchain_community.document_loaders import PyPDFLoader
 from langchain.docstore.document import Document
 import requests
 import tempfile
 import os
 
-GOOGLE_DRIVE_FILE_IDS = [
-    "1R2g3nIqSaV_qgxzGCcPJhAGuwbbU78Rb", "1joy2agdx9Z3DPtYoBS545lSFF9xRb14v","1EcyHIG8Zpem5gzG1PHF9b05NUXJgRMW2",
-    "1OUK2oQT3Zg_Xh24F4N-2wUrHK95skwbR","1srqyfwjTBol0FfSl3ymZWZh44JdOETBp","1f_7sqywN4riDtYPLHJnQok4y56VzXxC-",
-    "1mVwDnIieOqVKSdQT0vlVRvuzbKcSmdo_", "1EWvU3_kd5Lg_PMN3aGlIGnWtGvtU9lwb"]
-    # Add more if needed
-
-
+IDS = [
+    "1f_7sqywN4riDtYPLHJnQok4y56VzXxC-", "1EcyHIG8Zpem5gzG1PHF9b05NUXJgRMW2","1-X3ucWmFF5gBPjxFVzQM5WPIh0MVS8gp","1AFG7oibSoyyVWQ64o6FFUdJbXIfDWf3_",
+    "1FkLiqidEM4__bqzlHmD8BXdVj9_0zva8","1OUK2oQT3Zg_Xh24F4N-2wUrHK95skwbR", "1joy2agdx9Z3DPtYoBS545lSFF9xRb14v","1mVwDnIieOqVKSdQT0vlVRvuzbKcSmdo_",
+    "1cjBR5aQR-7oCUKEcJQdyLIUf6eYLTfll","1AH_gDRBiFD3Y3bueZARTLxajZaD1dpx0", "1R2g3nIqSaV_qgxzGCcPJhAGuwbbU78Rb", "1zcc2V0fSpO6eGPNPSQ3Rv4LSMaWY-7_Z", 
+    "1shjAzzKnG698sSpxe-M-l7j-DbGSO_8k","1CCTNdW2h6u3YX3MsRdpGPxB6FkFtKCZ_", "1ReVdBJYKFB5NFEQ-GfaIxNKPOPu7ay3m", "1PzLA8EkwbE6ODmCp8qWsIag4hSl5VxGD",
+    "1SC8fHw0_4QJPQkhSuhunKfoxClui2CuZ", "1H2nwjoJaR7XJclVx3t3YTfMaYeO8mVIl","1EWvU3_kd5Lg_PMN3aGlIGnWtGvtU9lwb","1bLqrWceOvO7NxcoxJl85JLhHRzhnW7Bu",
+    "1f2D5iFO3pc-wEQXVhB08ZeZmf5f-65ZW","1srqyfwjTBol0FfSl3ymZWZh44JdOETBp","1dGKrxju0hW4K9xs7pqfFIU7bvcMJLge4","1FbWRoP-tg7618aBdc8p-o_VFcUbsUUXg"]
+    
 def load_documents():
     documents = []
 
-    for file_id in GOOGLE_DRIVE_FILE_IDS:
+    for file_id in IDS:
         url = f"https://drive.google.com/uc?export=download&id={file_id}"
         response = requests.get(url)
 
@@ -128,16 +128,6 @@ def load_documents():
     print(f"✅ Loaded {len(documents)} documents from Drive")
     return documents
 
-
-# ==========================================================================================
-
-# def initialize_vectorstore(documents):
-#     text_splitter = CharacterTextSplitter(chunk_size=2000, chunk_overlap=400)
-#     chunks = text_splitter.split_documents(documents)
-#     embeddings = OpenAIEmbeddings()
-#     if os.path.exists(DB_DIR):
-#         Chroma(persist_directory=DB_DIR, embedding_function=embeddings).delete_collection()
-#     return Chroma.from_documents(documents=chunks, embedding=embeddings, persist_directory=DB_DIR)
 
 def sanitize_text(text):
     return text.encode("utf-8", "ignore").decode("utf-8", "ignore")
