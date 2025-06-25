@@ -9,3 +9,4 @@ venv/
 *.csv
 *.pdf
 knowledge-base/**/*.pdf
+mobile-app/node_modules

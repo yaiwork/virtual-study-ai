@@ -1,0 +1,25 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.app {
+  padding: 1rem;
+  max-width: 800px;
+  margin: auto;
+}
+
+.mode-container {
+  margin-top: 1rem;
+}
+
+textarea, input, select, button {
+  font-size: 1rem;
+}
+
+@media (max-width: 600px) {
+  .app {
+    padding: 0.5rem;
+  }
+}
